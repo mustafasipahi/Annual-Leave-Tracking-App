@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/user_leave_tracking
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    platform: mysql
+  jpa:
+    show-sql: true
+    database: mysql
+    properties:
+      hibernate:
+        format_sql: false
+    hibernate:
+      ddl-auto: create
+  jackson:
+    serialization:
+      indent-output: true
+
+redis-config:
+  host: localhost
+  port: 6379
+
+user-detail:
+  cacheMinute: 60
