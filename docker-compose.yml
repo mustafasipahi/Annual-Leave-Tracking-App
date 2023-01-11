@@ -1,0 +1,36 @@
+version: '3'
+services:
+
+  user_leave_tracking:
+    container_name: user_leave_tracking
+    image: user_leave_tracking:1
+    build: ./
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://user_leave_tracking-mysql:3306/user_leave_tracking?autoReconnect=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create
+    depends_on:
+      - user_leave_tracking-mysql
+      - user_leave_tracking-redis
+
+  user_leave_tracking-mysql:
+    container_name: user_leave_tracking-mysql
+    image: mysql:5.7
+    platform: linux/x86_64
+    environment:
+      - MYSQL_DATABASE=user_leave_tracking
+      - MYSQL_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+
+  user_leave_tracking-redis:
+    container_name: user_leave_tracking-redis
+    image: redis:6.2-alpine
+    ports:
+      - '6379:6379'
+
+# docker-compose -f /Users/mustafasabitsipahi/IdeaProjects/Annual-Leave-Tracking-App/docker-compose.yml up -d

@@ -9,7 +9,7 @@ import java.util.List;
 public interface AnnualLeaveService {
 
     void save(AnnualLeaveEntity entity);
-    Long update(UserAnnualLeaveUpdateDto dto);
+    void update(UserAnnualLeaveUpdateDto dto);
     List<UserAnnualLeaveDto> list(Long userId);
     int getTotalUsedDayCount(Long userId);
 }

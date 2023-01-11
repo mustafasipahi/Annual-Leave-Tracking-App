@@ -11,11 +11,9 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 
-@Component
-@AllArgsConstructor
 public class RedisCacheClient {
 
-    private final JedisPool jedisPool;
+    private JedisPool jedisPool;
 
     public Object get(String key) {
         try (Jedis jedis = jedisPool.getResource()) {

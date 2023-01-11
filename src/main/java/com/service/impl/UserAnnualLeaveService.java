@@ -4,6 +4,7 @@ import com.dto.UserAnnualLeaveCreateDto;
 import com.dto.UserAnnualLeaveRuleDto;
 import com.dto.UserAnnualLeaveRuleResponse;
 import com.entity.AnnualLeaveEntity;
+import com.enums.AnnualLeaveStatus;
 import com.service.AnnualLeaveService;
 import com.service.UserService;
 import com.service.annual.leave.rule.UserAnnualLeaveRule;
@@ -18,9 +19,9 @@ import java.util.Locale;
 @AllArgsConstructor
 public class UserAnnualLeaveService {
 
-    private List<UserAnnualLeaveRule> rules;
-    private UserService userService;
-    private AnnualLeaveService annualLeaveService;
+    private final List<UserAnnualLeaveRule> rules;
+    private final UserService userService;
+    private final AnnualLeaveService annualLeaveService;
 
     public void create(UserAnnualLeaveCreateDto dto, Locale locale) {
         final UserAnnualLeaveRuleDto ruleDto = convertToRuleDto(dto, locale);
@@ -37,6 +38,7 @@ public class UserAnnualLeaveService {
             .startDate(dto.getStartDate())
             .endDate(dto.getEndDate())
             .count(ruleDto.getRequestedAnnualLeaveDays().size())
+            .status(AnnualLeaveStatus.WAITING_APPROVE)
             .build());
     }
 

@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    //@Cacheable(value = USER_DETAIL_CACHE, key = "#userId")
+    @Cacheable(value = USER_DETAIL_CACHE, key = "#userId")
     public UserEntity detail(Long userId, Locale locale) {
         return userRepository.findById(userId)
             .orElseThrow(() -> new UserNotFoundException(locale));

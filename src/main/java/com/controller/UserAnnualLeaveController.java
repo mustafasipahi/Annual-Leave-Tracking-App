@@ -31,8 +31,8 @@ public class UserAnnualLeaveController {
 
     @ApiOperation(value = "Cancel to User Annual Leave")
     @PutMapping("/update")
-    public Long update(@RequestBody @Valid UserAnnualLeaveUpdateDto dto) {
-        return annualLeaveService.update(dto);
+    public void update(@RequestBody @Valid UserAnnualLeaveUpdateDto dto) {
+        annualLeaveService.update(dto);
     }
 
     @ApiOperation(value = "List to User Annual Leave")
