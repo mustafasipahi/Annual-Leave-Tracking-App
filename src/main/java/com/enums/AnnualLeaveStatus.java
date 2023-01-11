@@ -9,5 +9,6 @@ public enum AnnualLeaveStatus {
 
     WAITING_APPROVE,
     APPROVED,
-    REJECTED
+    REJECTED,
+    CANCEL
 }

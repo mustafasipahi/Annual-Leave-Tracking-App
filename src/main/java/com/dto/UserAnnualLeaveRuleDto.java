@@ -1,7 +1,10 @@
 package com.dto;
 
+import com.entity.UserEntity;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Locale;
 
 @Getter
@@ -12,7 +15,8 @@ import java.util.Locale;
 public class UserAnnualLeaveRuleDto {
 
     private Locale locale;
-    private UserDto user;
-    private int requestedAnnualLeave;
-    private int totalAnnualLeave;
+    private UserEntity user;
+    private List<LocalDate> requestedAnnualLeaveDays;
+    private int totalUsedDayCount;
+    private int approvedDaysCount;
 }

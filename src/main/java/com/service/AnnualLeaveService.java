@@ -1,14 +1,15 @@
 package com.service;
 
-import com.dto.UserAnnualLeaveCreateDto;
 import com.dto.UserAnnualLeaveDto;
 import com.dto.UserAnnualLeaveUpdateDto;
+import com.entity.AnnualLeaveEntity;
 
 import java.util.List;
 
-public interface UserAnnualLeaveService {
+public interface AnnualLeaveService {
 
-    Long create(UserAnnualLeaveCreateDto dto);
+    void save(AnnualLeaveEntity entity);
     Long update(UserAnnualLeaveUpdateDto dto);
     List<UserAnnualLeaveDto> list(Long userId);
+    int getTotalUsedDayCount(Long userId);
 }

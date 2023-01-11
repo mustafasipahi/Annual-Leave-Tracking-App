@@ -9,9 +9,9 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserAnnualLeaveCreateDto {
+public class MyHoliday {
 
-    private Long userId;
+    private String name;
     private LocalDate startDate;
     private LocalDate endDate;
 }

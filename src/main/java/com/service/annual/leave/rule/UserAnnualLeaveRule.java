@@ -1,8 +1,9 @@
 package com.service.annual.leave.rule;
 
 import com.dto.UserAnnualLeaveRuleDto;
+import com.dto.UserAnnualLeaveRuleResponse;
 
 public interface UserAnnualLeaveRule {
 
-    void verify(UserAnnualLeaveRuleDto dto);
+    UserAnnualLeaveRuleResponse verify(UserAnnualLeaveRuleDto dto);
 }

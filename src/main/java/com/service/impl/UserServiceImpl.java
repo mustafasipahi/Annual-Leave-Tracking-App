@@ -45,20 +45,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     //@Cacheable(value = USER_DETAIL_CACHE, key = "#userId")
-    public UserDto detail(Long userId, Locale locale) {
-        final UserEntity userEntity = userRepository.findById(userId)
+    public UserEntity detail(Long userId, Locale locale) {
+        return userRepository.findById(userId)
             .orElseThrow(() -> new UserNotFoundException(locale));
-
-        return convertToUserDto(userEntity);
-    }
-
-    private UserDto convertToUserDto(UserEntity userEntity) {
-        return UserDto.builder()
-            .id(userEntity.getId())
-            .firstName(userEntity.getFirstName())
-            .lastName(userEntity.getLastName())
-            .phone(userEntity.getPhone())
-            .createdDate(userEntity.getCreatedDate())
-            .build();
     }
 }

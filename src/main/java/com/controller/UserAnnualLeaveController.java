@@ -3,7 +3,8 @@ package com.controller;
 import com.dto.UserAnnualLeaveCreateDto;
 import com.dto.UserAnnualLeaveDto;
 import com.dto.UserAnnualLeaveUpdateDto;
-import com.service.UserAnnualLeaveService;
+import com.service.AnnualLeaveService;
+import com.service.impl.UserAnnualLeaveService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -19,24 +20,24 @@ import java.util.Locale;
 @RequestMapping("/annual-leave")
 public class UserAnnualLeaveController {
 
+    private final AnnualLeaveService annualLeaveService;
     private final UserAnnualLeaveService userAnnualLeaveService;
 
     @ApiOperation(value = "Create to User Annual Leave")
     @PostMapping("/create")
-    public Long create(@RequestBody @Valid UserAnnualLeaveCreateDto dto, Locale locale) {
-        dto.setLocale(locale);
-        return userAnnualLeaveService.create(dto);
+    public void create(@RequestBody @Valid UserAnnualLeaveCreateDto dto, Locale locale) {
+        userAnnualLeaveService.create(dto, locale);
     }
 
     @ApiOperation(value = "Cancel to User Annual Leave")
     @PutMapping("/update")
     public Long update(@RequestBody @Valid UserAnnualLeaveUpdateDto dto) {
-        return userAnnualLeaveService.update(dto);
+        return annualLeaveService.update(dto);
     }
 
     @ApiOperation(value = "List to User Annual Leave")
     @GetMapping("/list/{userId}")
     public List<UserAnnualLeaveDto> list(@PathVariable Long userId) {
-        return userAnnualLeaveService.list(userId);
+        return annualLeaveService.list(userId);
     }
 }

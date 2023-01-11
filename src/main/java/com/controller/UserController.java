@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.dto.UserDto;
+import com.entity.UserEntity;
 import com.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,7 +33,7 @@ public class UserController {
 
     @ApiOperation(value = "Detail to User Entity")
     @GetMapping("/detail/{id}")
-    public UserDto detail(@PathVariable Long id, Locale locale) {
+    public UserEntity detail(@PathVariable Long id, Locale locale) {
         return userService.detail(id, locale);
     }
 }
