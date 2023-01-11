@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 import java.util.Locale;
+import java.util.Optional;
 
 @Getter
 public class BaseMyException extends RuntimeException {
@@ -26,6 +27,8 @@ public class BaseMyException extends RuntimeException {
     }
 
     private static String localMessage(String messageKey, Locale local) {
-        return translateService.getMessage(messageKey, local);
+        final Locale newLocal = Optional.ofNullable(local)
+            .orElse(new Locale("tr"));
+        return translateService.getMessage(messageKey, newLocal);
     }
 }

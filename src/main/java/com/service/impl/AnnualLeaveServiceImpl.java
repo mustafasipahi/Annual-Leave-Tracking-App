@@ -1,8 +1,10 @@
 package com.service.impl;
 
+import com.client.RedisCacheClient;
 import com.dto.UserAnnualLeaveDto;
 import com.dto.UserAnnualLeaveUpdateDto;
 import com.entity.AnnualLeaveEntity;
+import com.exception.AnnualLeaveException;
 import com.repository.AnnualLeaveRepository;
 import com.service.AnnualLeaveService;
 import lombok.AllArgsConstructor;
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.constant.CacheConstants.USER_LIST_LEAVE_CACHE;
+import static com.constant.CacheConstants.USER_ANNUAL_LEAVE_LIST_CACHE;
 import static com.constant.CacheConstants.USER_TOTAL_ANNUAL_LEAVE_CACHE;
 import static com.enums.AnnualLeaveStatus.APPROVED;
 import static com.enums.AnnualLeaveStatus.WAITING_APPROVE;
@@ -23,29 +25,27 @@ import static com.enums.AnnualLeaveStatus.WAITING_APPROVE;
 @AllArgsConstructor
 public class AnnualLeaveServiceImpl implements AnnualLeaveService {
 
-    private AnnualLeaveRepository annualLeaveRepository;
+    private final AnnualLeaveRepository annualLeaveRepository;
+    private final RedisCacheClient redisCacheClient;
 
     @Override
-    @Caching(evict = {
-        @CacheEvict(value = USER_LIST_LEAVE_CACHE, key = "#annualLeaveEntity.user.id"),
-        @CacheEvict(value = USER_TOTAL_ANNUAL_LEAVE_CACHE, key = "#annualLeaveEntity.user.id")
-    })
     public void save(AnnualLeaveEntity annualLeaveEntity) {
+        evictCache(annualLeaveEntity.getUser().getId());
         annualLeaveRepository.save(annualLeaveEntity);
     }
 
     @Override
-    @Caching(evict = {
-        @CacheEvict(value = USER_LIST_LEAVE_CACHE, key = "#userId"),
-        @CacheEvict(value = USER_LIST_LEAVE_CACHE, key = "#userId")
-    })
     public Long update(UserAnnualLeaveUpdateDto dto) {
+        final AnnualLeaveEntity annualLeaveEntity = annualLeaveRepository.findById(dto.getAnnualLeaveId())
+            .orElseThrow(() -> new AnnualLeaveException(dto.getLocale()));
 
+        annualLeaveEntity.setStatus(dto.getStatus());
+        evictCache(annualLeaveEntity.getUser().getId());
         return null;
     }
 
     @Override
-    @Cacheable(value = USER_LIST_LEAVE_CACHE, key = "#userId")
+    @Cacheable(value = USER_ANNUAL_LEAVE_LIST_CACHE, key = "#userId")
     public List<UserAnnualLeaveDto> list(Long userId) {
         return null;
     }
@@ -58,5 +58,10 @@ public class AnnualLeaveServiceImpl implements AnnualLeaveService {
             .map(AnnualLeaveEntity::getCount)
             .reduce(Integer::sum)
             .orElse(0);
+    }
+
+    private void evictCache(Long userId) {
+        redisCacheClient.delete(USER_ANNUAL_LEAVE_LIST_CACHE + userId);
+        redisCacheClient.delete(USER_TOTAL_ANNUAL_LEAVE_CACHE + userId);
     }
 }
