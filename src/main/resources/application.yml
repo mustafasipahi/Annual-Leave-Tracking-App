@@ -19,6 +19,16 @@ spring:
   jackson:
     serialization:
       indent-output: true
+  messages:
+    always-use-message-format: false
+    basename: message
+    encoding: UTF-8
+
+springdoc:
+  packagesToScan: com.controller
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui
 
 redis-config:
   host: localhost

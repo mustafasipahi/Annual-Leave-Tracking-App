@@ -1,7 +1,7 @@
-package com.service.rule.rules;
+package com.service.annual.leave.rule.rules;
 
-import com.dto.UserAnnualLeaveCreateDto;
-import com.service.rule.UserAnnualLeaveRule;
+import com.dto.UserAnnualLeaveRuleDto;
+import com.service.annual.leave.rule.UserAnnualLeaveRule;
 import lombok.AllArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class B implements UserAnnualLeaveRule {
 
     @Override
-    public void verify(UserAnnualLeaveCreateDto dto) {
+    public void verify(UserAnnualLeaveRuleDto dto) {
 
     }
 }

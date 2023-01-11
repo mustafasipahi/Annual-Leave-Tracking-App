@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -22,4 +23,5 @@ public class UserDto implements Serializable {
     private String lastName;
     @ValidPhone
     private String phone;
+    private Date createdDate;
 }

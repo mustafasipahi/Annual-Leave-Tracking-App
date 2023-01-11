@@ -9,8 +9,9 @@ import java.util.Locale;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserAnnualLeaveCreateDto {
+public class UserAnnualLeaveRuleDto {
 
-    private Long userId;
     private Locale locale;
+    private UserDto user;
+    private int totalAnnualLeave;
 }

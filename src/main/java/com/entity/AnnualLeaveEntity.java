@@ -37,6 +37,9 @@ public class AnnualLeaveEntity {
     @Column(name = "count", nullable = false)
     private int count;
 
+    @Column(name = "holidays_count", nullable = false)
+    private int holidaysCount;
+
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private AnnualLeaveStatus status;

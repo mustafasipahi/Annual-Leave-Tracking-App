@@ -7,4 +7,5 @@ import lombok.NoArgsConstructor;
 public class CacheConstants {
 
     public static final String USER_DETAIL_CACHE = "user_detail_cache_";
+    public static final String USER_TOTAL_ANNUAL_LEAVE_CACHE = "user_total_annual_leave_cache_";
 }

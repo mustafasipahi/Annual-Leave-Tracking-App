@@ -6,6 +6,7 @@ import org.apache.logging.log4j.util.Strings;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,7 +19,7 @@ public class PhoneValidator implements ConstraintValidator<ValidPhone, String> {
     public boolean isValid(String value, ConstraintValidatorContext context) {
 
         if (Strings.isBlank(value)) {
-            throw new PhoneNumberException();
+            throw new PhoneNumberException(Locale.ENGLISH);
         }
 
         Pattern pattern = Pattern.compile(TURKEY_PHONE_REGEX);
