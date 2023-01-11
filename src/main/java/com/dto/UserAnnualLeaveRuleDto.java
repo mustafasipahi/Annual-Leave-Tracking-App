@@ -13,5 +13,6 @@ public class UserAnnualLeaveRuleDto {
 
     private Locale locale;
     private UserDto user;
+    private int requestedAnnualLeave;
     private int totalAnnualLeave;
 }

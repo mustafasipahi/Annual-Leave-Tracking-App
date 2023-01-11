@@ -7,7 +7,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 public class AnnualLeaveRuleException extends BaseMyException {
 
-    public AnnualLeaveRuleException(Locale locale) {
-        super(INVALID_RULE, BAD_REQUEST, "worked.for.least.one.year", locale);
+    public AnnualLeaveRuleException(String messageKey, Locale locale) {
+        super(INVALID_RULE, BAD_REQUEST, messageKey, locale);
     }
 }

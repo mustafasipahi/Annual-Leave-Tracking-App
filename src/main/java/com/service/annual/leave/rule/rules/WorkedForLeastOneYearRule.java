@@ -23,7 +23,7 @@ public class WorkedForLeastOneYearRule implements UserAnnualLeaveRule {
         final Date now = DateUtil.nowAsDate();
 
         if (userCreatedDate.compareTo(now) > 0) {
-            throw new AnnualLeaveRuleException(dto.getLocale());
+            throw new AnnualLeaveRuleException("worked.for.least.one.year", dto.getLocale());
         }
     }
 }
