@@ -1,6 +1,5 @@
 package com.service.impl;
 
-import com.client.RedisCacheClient;
 import com.dto.UserAnnualLeaveDto;
 import com.dto.UserAnnualLeaveUpdateDto;
 import com.entity.AnnualLeaveEntity;
@@ -25,11 +24,9 @@ import static com.enums.AnnualLeaveStatus.WAITING_APPROVE;
 public class AnnualLeaveServiceImpl implements AnnualLeaveService {
 
     private final AnnualLeaveRepository annualLeaveRepository;
-    private RedisCacheClient redisCacheClient;
 
     @Override
     public void save(AnnualLeaveEntity annualLeaveEntity) {
-        evictCache(annualLeaveEntity.getUser().getId());
         annualLeaveRepository.save(annualLeaveEntity);
     }
 
@@ -39,7 +36,6 @@ public class AnnualLeaveServiceImpl implements AnnualLeaveService {
             .orElseThrow(() -> new AnnualLeaveException(dto.getLocale()));
 
         annualLeaveEntity.setStatus(dto.getStatus());
-        evictCache(annualLeaveEntity.getUser().getId());
         annualLeaveRepository.save(annualLeaveEntity);
     }
 
@@ -67,10 +63,5 @@ public class AnnualLeaveServiceImpl implements AnnualLeaveService {
             .map(AnnualLeaveEntity::getCount)
             .reduce(Integer::sum)
             .orElse(0);
-    }
-
-    private void evictCache(Long userId) {
-        redisCacheClient.delete(USER_ANNUAL_LEAVE_LIST_CACHE + userId);
-        redisCacheClient.delete(USER_TOTAL_ANNUAL_LEAVE_CACHE + userId);
     }
 }

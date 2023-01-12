@@ -95,3 +95,13 @@ X
 (src/main/java/com/entity/UserEntity.java,a/7/a7480aa519ced7ccc0c86e9ba75c718b4dded19a
 c
 3src/main/java/com/service/impl/UserServiceImpl.java,f/2/f23437854686287f95932a7b3aed1a2a37c998d3
+_
+/src/main/java/com/entity/AnnualLeaveEntity.java,6/8/68620edff4f74096f1aa081cbc1ecd0cdd391b9e
+]
+-src/main/java/com/dto/UserAnnualLeaveDto.java,4/7/47b73406b814f69868dc2fcfbbe79a2685a8fdc3
+a
+1src/main/java/com/service/AnnualLeaveService.java,a/0/a02d3fd250b55180d98c8266fb5bc31a4b541f03
+k
+;src/main/java/com/controller/UserAnnualLeaveController.java,3/8/3846dc84e3beb81ac851eb78d217ca1e295a0baa
+j
+:src/main/java/com/service/impl/AnnualLeaveServiceImpl.java,3/b/3b467141e2aac20dce34e4d9e54b413b2b25f447
