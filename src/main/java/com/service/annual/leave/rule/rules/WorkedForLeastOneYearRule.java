@@ -17,6 +17,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class WorkedForLeastOneYearRule implements UserAnnualLeaveRule {
 
+    private static final String MESSAGE_KEY = "worked.for.least.one.year";
+
     @Override
     public UserAnnualLeaveRuleResponse verify(UserAnnualLeaveRuleDto dto) {
 
@@ -24,7 +26,7 @@ public class WorkedForLeastOneYearRule implements UserAnnualLeaveRule {
         final Date now = DateUtil.nowAsDate();
 
         if (userCreatedDate.compareTo(now) > 0) {
-            throw new AnnualLeaveRuleException("worked.for.least.one.year", dto.getLocale());
+            throw new AnnualLeaveRuleException(MESSAGE_KEY);
         }
 
         return UserAnnualLeaveRuleResponse.builder()

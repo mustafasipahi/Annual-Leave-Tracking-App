@@ -25,19 +25,19 @@ public class AvailableAnnualLeaveCountRule implements UserAnnualLeaveRule {
         final AnnualLeavedPeriodType period = UserAnnualLeavedPeriodUtil.getPeriod(dto.getUser().getCreatedDate());
 
         if (requestSize < 1) {
-            throw new AnnualLeaveRuleException(MESSAGE_KEY, dto.getLocale());
+            throw new AnnualLeaveRuleException(MESSAGE_KEY);
         }
 
         if (totalAnnualLeaveDay >= period.getPeriod()) {
-            throw new AnnualLeaveRuleException(MESSAGE_KEY, dto.getLocale());
+            throw new AnnualLeaveRuleException(MESSAGE_KEY);
         }
 
         if (requestSize > period.getPeriod()) {
-            throw new AnnualLeaveRuleException(MESSAGE_KEY, dto.getLocale());
+            throw new AnnualLeaveRuleException(MESSAGE_KEY);
         }
 
         if (Math.addExact(requestSize, totalAnnualLeaveDay) > period.getPeriod()) {
-            throw new AnnualLeaveRuleException(MESSAGE_KEY, dto.getLocale());
+            throw new AnnualLeaveRuleException(MESSAGE_KEY);
         }
 
         return UserAnnualLeaveRuleResponse.builder()

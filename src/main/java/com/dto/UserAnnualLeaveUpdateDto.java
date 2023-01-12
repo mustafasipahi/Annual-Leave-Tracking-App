@@ -4,7 +4,6 @@ import com.enums.AnnualLeaveStatus;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.Locale;
 
 @Getter
 @Setter
@@ -17,5 +16,4 @@ public class UserAnnualLeaveUpdateDto {
     private Long annualLeaveId;
     @NotNull
     private AnnualLeaveStatus status;
-    private Locale locale;
 }

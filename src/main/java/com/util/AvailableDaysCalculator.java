@@ -16,7 +16,7 @@ import java.util.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AvailableDaysCalculator {
 
-    public static List<LocalDate> getAvailableDays(LocalDate startDate, LocalDate endDate, Locale locale) {
+    public static List<LocalDate> getAvailableDays(LocalDate startDate, LocalDate endDate) {
 
         if (startDate == null || endDate == null) {
             return Collections.emptyList();
@@ -34,7 +34,7 @@ public class AvailableDaysCalculator {
         }
 
         if (availableDays.isEmpty()) {
-            throw new AvailableDaysException(locale);
+            throw new AvailableDaysException();
         }
         return new ArrayList<>(availableDays);
     }

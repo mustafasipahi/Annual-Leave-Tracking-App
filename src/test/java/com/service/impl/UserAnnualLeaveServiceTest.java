@@ -15,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
-import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -32,6 +31,7 @@ class UserAnnualLeaveServiceTest {
     @Mock
     private AnnualLeaveService annualLeaveService;
 
+    @Test
     void shouldCreate() {
 
         final UserAnnualLeaveCreateDto dto = UserAnnualLeaveCreateDto.builder()
@@ -40,19 +40,17 @@ class UserAnnualLeaveServiceTest {
             .endDate(LocalDate.now().plusDays(1))
             .build();
 
-        final Locale locale = new Locale("tr");
-
         final UserEntity user = UserEntity.builder()
             .id(dto.getUserId())
             .build();
 
         int totalUsedDayCount = RandomUtils.nextInt();
 
-        when(userService.detail(dto.getUserId(), locale)).thenReturn(user);
+        when(userService.detail(dto.getUserId())).thenReturn(user);
         when(annualLeaveService.getTotalUsedDayCount(dto.getUserId())).thenReturn(totalUsedDayCount);
-        userAnnualLeaveService.create(dto, locale);
+        userAnnualLeaveService.create(dto);
 
-        verify(userService).detail(dto.getUserId(), locale);
+        verify(userService).detail(dto.getUserId());
         verify(annualLeaveService).getTotalUsedDayCount(dto.getUserId());
 
         ArgumentCaptor<AnnualLeaveEntity> captor = ArgumentCaptor.forClass(AnnualLeaveEntity.class);

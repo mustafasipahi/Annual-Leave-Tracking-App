@@ -29,15 +29,15 @@ public class AdvanceFirstYearRule implements UserAnnualLeaveRule {
             int requestSize = dto.getRequestedAnnualLeaveDays().size();
 
             if (totalAnnualLeaveDay >= ADVANCE_ANNUAL_LEAVE_COUNT) {
-                throw new AnnualLeaveRuleException(MESSAGE_KEY, dto.getLocale());
+                throw new AnnualLeaveRuleException(MESSAGE_KEY);
             }
 
             if (requestSize > ADVANCE_ANNUAL_LEAVE_COUNT) {
-                throw new AnnualLeaveRuleException(MESSAGE_KEY, dto.getLocale());
+                throw new AnnualLeaveRuleException(MESSAGE_KEY);
             }
 
             if (Math.addExact(requestSize, totalAnnualLeaveDay) > ADVANCE_ANNUAL_LEAVE_COUNT) {
-                throw new AnnualLeaveRuleException(MESSAGE_KEY, dto.getLocale());
+                throw new AnnualLeaveRuleException(MESSAGE_KEY);
             }
 
             return UserAnnualLeaveRuleResponse.builder()

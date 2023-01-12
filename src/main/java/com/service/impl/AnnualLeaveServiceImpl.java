@@ -33,7 +33,7 @@ public class AnnualLeaveServiceImpl implements AnnualLeaveService {
     @Override
     public void update(UserAnnualLeaveUpdateDto dto) {
         final AnnualLeaveEntity annualLeaveEntity = annualLeaveRepository.findById(dto.getAnnualLeaveId())
-            .orElseThrow(() -> new AnnualLeaveException(dto.getLocale()));
+            .orElseThrow(AnnualLeaveException::new);
 
         annualLeaveEntity.setStatus(dto.getStatus());
         annualLeaveRepository.save(annualLeaveEntity);

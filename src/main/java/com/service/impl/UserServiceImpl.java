@@ -11,8 +11,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Locale;
-
 import static com.constant.CacheConstants.USER_DETAIL_CACHE;
 
 @Service
@@ -36,17 +34,17 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     @CacheEvict(value = USER_DETAIL_CACHE, key = "#userId", allEntries = true)
-    public void delete(Long userId, Locale locale) {
+    public void delete(Long userId) {
         final UserEntity userEntity = userRepository.findById(userId)
-            .orElseThrow(() -> new UserNotFoundException(locale));
+            .orElseThrow(UserNotFoundException::new);
 
         userRepository.deleteById(userEntity.getId());
     }
 
     @Override
     @Cacheable(value = USER_DETAIL_CACHE, key = "#userId")
-    public UserEntity detail(Long userId, Locale locale) {
+    public UserEntity detail(Long userId) {
         return userRepository.findById(userId)
-            .orElseThrow(() -> new UserNotFoundException(locale));
+            .orElseThrow(UserNotFoundException::new);
     }
 }

@@ -1,34 +1,21 @@
 package com.exception;
 
-import com.holder.AppContextHolder;
-import com.service.TranslateService;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
-import java.util.Locale;
-import java.util.Optional;
-
 @Getter
+@Setter
 public class BaseMyException extends RuntimeException {
-
-    private static final TranslateService translateService;
 
     private final int code;
     private final HttpStatus status;
+    private final String messageKey;
 
-    static {
-        translateService = AppContextHolder.getBean(TranslateService.class);
-    }
-
-    public BaseMyException(int code, HttpStatus status, String messageKey, Locale locale) {
-        super(localMessage(messageKey, locale));
+    public BaseMyException(int code, HttpStatus status, String messageKey) {
+        super(messageKey);
         this.code = code;
         this.status = status;
-    }
-
-    private static String localMessage(String messageKey, Locale local) {
-        final Locale newLocal = Optional.ofNullable(local)
-            .orElse(new Locale("tr"));
-        return translateService.getMessage(messageKey, newLocal);
+        this.messageKey = messageKey;
     }
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Locale;
 
 @Api(value = "User Annual Leave")
 @RestController
@@ -25,8 +24,8 @@ public class UserAnnualLeaveController {
 
     @ApiOperation(value = "Create to User Annual Leave")
     @PostMapping("/create")
-    public void create(@RequestBody @Valid UserAnnualLeaveCreateDto dto, Locale locale) {
-        userAnnualLeaveService.create(dto, locale);
+    public void create(@RequestBody @Valid UserAnnualLeaveCreateDto dto) {
+        userAnnualLeaveService.create(dto);
     }
 
     @ApiOperation(value = "Cancel to User Annual Leave")

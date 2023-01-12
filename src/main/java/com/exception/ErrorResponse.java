@@ -17,7 +17,7 @@ public class ErrorResponse {
     private int code;
     private String message;
 
-    private ErrorResponse(int code, String message) {
+    ErrorResponse(int code, String message) {
         this.date = new Date();
         this.code = code;
         this.message = message;

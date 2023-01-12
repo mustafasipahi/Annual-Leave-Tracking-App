@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Locale;
 
 @Api(value = "User")
 @RestController
@@ -27,13 +26,13 @@ public class UserController {
 
     @ApiOperation(value = "Delete to User Entity")
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id, Locale locale) {
-        userService.delete(id, locale);
+    public void delete(@PathVariable Long id) {
+        userService.delete(id);
     }
 
     @ApiOperation(value = "Detail to User Entity")
     @GetMapping("/detail/{id}")
-    public UserEntity detail(@PathVariable Long id, Locale locale) {
-        return userService.detail(id, locale);
+    public UserEntity detail(@PathVariable Long id) {
+        return userService.detail(id);
     }
 }
