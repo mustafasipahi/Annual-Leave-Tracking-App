@@ -19,8 +19,8 @@ services:
 
   user-leave-tracking-mysql:
     container_name: user-leave-tracking-mysql
-    restart: always
     image: mysql:5.7
+    restart: always
     platform: linux/x86_64
     environment:
       - MYSQL_DATABASE=user_leave_tracking
@@ -35,8 +35,8 @@ services:
 
   user-leave-tracking-redis:
     container_name: user-leave-tracking-redis
-    restart: always
     image: redis:6.2-alpine
+    restart: always
     volumes:
       - ./mysql:/var/lib/user-leave-tracking-redis
     ports:
