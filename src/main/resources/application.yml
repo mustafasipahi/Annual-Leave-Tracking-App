@@ -19,10 +19,6 @@ spring:
   jackson:
     serialization:
       indent-output: true
-  messages:
-    always-use-message-format: false
-    basename: message
-    encoding: UTF-8
 
 redis-config:
   host: ${REDIS_HOST:localhost}
