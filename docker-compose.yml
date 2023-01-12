@@ -13,6 +13,8 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: create
+      REDIS_HOST: user-leave-tracking-redis
+      REDIS_PORT: 6379
     depends_on:
       - user-leave-tracking-mysql
       - user-leave-tracking-redis
@@ -44,4 +46,5 @@ services:
     expose:
       - 6379
 
+# docker rmi $(docker images -a -q)
 # docker-compose up -d

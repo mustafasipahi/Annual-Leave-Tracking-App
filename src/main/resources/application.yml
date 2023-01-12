@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/user_leave_tracking
-    username: root
-    password: root
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/user_leave_tracking?autoReconnect=true&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:localhost}
+    password: ${SPRING_DATASOURCE_PASSWORD:localhost}
     driver-class-name: com.mysql.cj.jdbc.Driver
     platform: mysql
   jpa:
@@ -15,7 +15,7 @@ spring:
       hibernate:
         format_sql: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:create}
   jackson:
     serialization:
       indent-output: true
@@ -31,8 +31,8 @@ springdoc:
     path: /swagger-ui
 
 redis-config:
-  host: localhost
-  port: 6379
+  host: ${REDIS_HOST:localhost}
+  port: ${REDIS_PORT:localhost}
 
 user-detail:
   userCacheMinute: 60
