@@ -4,6 +4,7 @@ services:
   user-leave-tracking-app:
     container_name: user-leave-tracking-app
     image: user-leave-tracking-app:1
+    restart: always
     build: ./
     ports:
       - "8080:8080"
