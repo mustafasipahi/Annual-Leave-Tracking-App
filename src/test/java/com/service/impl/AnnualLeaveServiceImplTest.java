@@ -4,6 +4,7 @@ import com.dto.UserAnnualLeaveDto;
 import com.dto.UserAnnualLeaveResponse;
 import com.dto.UserAnnualLeaveUpdateDto;
 import com.entity.AnnualLeaveEntity;
+import com.entity.UserEntity;
 import com.enums.AnnualLeaveStatus;
 import com.exception.AnnualLeaveException;
 import com.repository.AnnualLeaveRepository;
@@ -19,13 +20,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static com.constant.CacheConstants.USER_ANNUAL_LEAVE_LIST_CACHE;
+import static com.constant.CacheConstants.USER_TOTAL_ANNUAL_LEAVE_CACHE;
 import static com.constant.ErrorCodes.AVAILABLE_NOT_FOUND;
 import static com.enums.AnnualLeaveStatus.APPROVED;
 import static com.enums.AnnualLeaveStatus.WAITING_APPROVE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,14 +37,24 @@ class AnnualLeaveServiceImplTest {
     private AnnualLeaveServiceImpl annualLeaveService;
     @Mock
     private AnnualLeaveRepository annualLeaveRepository;
+    @Mock
+    private RedisServiceImpl redisService;
 
     @Test
     void shouldSave() {
-        final AnnualLeaveEntity entity = AnnualLeaveEntity.builder()
+
+        final UserEntity user = UserEntity.builder()
             .id(RandomUtils.nextLong())
             .build();
-        annualLeaveService.save(entity);
-        verify(annualLeaveRepository).save(entity);
+
+        final AnnualLeaveEntity annualLeave = AnnualLeaveEntity.builder()
+            .id(RandomUtils.nextLong())
+            .user(user)
+            .build();
+
+        annualLeaveService.save(annualLeave);
+        verify(annualLeaveRepository).save(annualLeave);
+        verifyCacheEvict(user.getId());
     }
 
     @Test
@@ -68,7 +80,16 @@ class AnnualLeaveServiceImplTest {
             .status(AnnualLeaveStatus.APPROVED)
             .build();
 
-        when(annualLeaveRepository.findById(dto.getAnnualLeaveId())).thenReturn(Optional.of(new AnnualLeaveEntity()));
+        final UserEntity user = UserEntity.builder()
+            .id(RandomUtils.nextLong())
+            .build();
+
+        final AnnualLeaveEntity annualLeave = AnnualLeaveEntity.builder()
+            .id(RandomUtils.nextLong())
+            .user(user)
+            .build();
+
+        when(annualLeaveRepository.findById(dto.getAnnualLeaveId())).thenReturn(Optional.of(annualLeave));
         annualLeaveService.update(dto);
 
         ArgumentCaptor<AnnualLeaveEntity> captor = ArgumentCaptor.forClass(AnnualLeaveEntity.class);
@@ -76,6 +97,7 @@ class AnnualLeaveServiceImplTest {
         AnnualLeaveEntity captorValue = captor.getValue();
 
         assertEquals(dto.getStatus(), captorValue.getStatus());
+        verifyCacheEvict(user.getId());
     }
 
     @Test
@@ -118,5 +140,15 @@ class AnnualLeaveServiceImplTest {
 
         int totalUsedDayCount = annualLeaveService.getTotalUsedDayCount(userId);
         assertEquals(entity1.getCount() + entity2.getCount(), totalUsedDayCount);
+    }
+
+    private void verifyCacheEvict (Long userId) {
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(redisService, times(2)).deleteByKey(captor.capture());
+        final List<String> captorAllValues = captor.getAllValues();
+
+        assertEquals(2, captorAllValues.size());
+        assertEquals(USER_ANNUAL_LEAVE_LIST_CACHE + "::" + userId, captorAllValues.get(0));
+        assertEquals(USER_TOTAL_ANNUAL_LEAVE_CACHE + "::" + userId, captorAllValues.get(1));
     }
 }
