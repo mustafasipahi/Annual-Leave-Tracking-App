@@ -25,7 +25,6 @@ public class MyExceptionAdvice {
 
     @ExceptionHandler(BaseMyException.class)
     public ResponseEntity<ErrorResponse> handleException(BaseMyException e) {
-        log.error("Exception occurred!", e);
         return getMultiLanguageException(e);
     }
 
@@ -40,6 +39,7 @@ public class MyExceptionAdvice {
     private ResponseEntity<ErrorResponse> getMultiLanguageException(BaseMyException e) {
         final Locale local = Optional.ofNullable(request.getLocale()).orElse(new Locale("tr"));
         final String message = translateService.getMessage(e.getMessageKey(), local);
+        log.error("Exception occurred!", new BaseMyException(e.getCode(), e.getStatus(), message));
         return ResponseEntity
             .status(e.getStatus())
             .body(new ErrorResponse(e.getCode(), message));

@@ -8,9 +8,9 @@ import org.springframework.http.HttpStatus;
 @Setter
 public class BaseMyException extends RuntimeException {
 
-    private final int code;
-    private final HttpStatus status;
-    private final String messageKey;
+    private int code;
+    private HttpStatus status;
+    private String messageKey;
 
     public BaseMyException(int code, HttpStatus status, String messageKey) {
         super(messageKey);
