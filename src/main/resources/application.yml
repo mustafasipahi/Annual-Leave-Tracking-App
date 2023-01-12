@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/user_leave_tracking?autoReconnect=true&useSSL=false}
-    username: ${SPRING_DATASOURCE_USERNAME:localhost}
-    password: ${SPRING_DATASOURCE_PASSWORD:localhost}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
     platform: mysql
   jpa:
@@ -24,15 +24,15 @@ spring:
     basename: message
     encoding: UTF-8
 
+redis-config:
+  host: ${REDIS_HOST:localhost}
+  port: ${REDIS_PORT:6379}
+
 springdoc:
   packagesToScan: com.controller
   swagger-ui:
     enabled: true
     path: /swagger-ui
-
-redis-config:
-  host: ${REDIS_HOST:localhost}
-  port: ${REDIS_PORT:localhost}
 
 user-detail:
   userCacheMinute: 60
