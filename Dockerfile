@@ -8,4 +8,5 @@ ENTRYPOINT ["java", "-jar", "my_app.jar"]
 # docker images -a
 # docker network ls
 # docker run --name user_leave_tracking_app -p 8080:8080 user_leave_tracking_app
-# if want to delete use docker image rm user_leave_tracking_app
+# docker image rm user_leave_tracking_app
+# docker rmi $(docker images -a -q)
