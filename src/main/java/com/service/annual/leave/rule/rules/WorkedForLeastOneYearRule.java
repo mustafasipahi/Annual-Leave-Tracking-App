@@ -17,7 +17,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class WorkedForLeastOneYearRule implements UserAnnualLeaveRule {
 
-    private static final String MESSAGE_KEY = "worked.for.least.one.year";
+    protected static final String MESSAGE_KEY = "worked.for.least.one.year";
 
     @Override
     public UserAnnualLeaveRuleResponse verify(UserAnnualLeaveRuleDto dto) {

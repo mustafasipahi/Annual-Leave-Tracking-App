@@ -1,9 +1,11 @@
 package com.service.impl;
 
 import com.dto.UserAnnualLeaveDto;
+import com.dto.UserAnnualLeaveResponse;
 import com.dto.UserAnnualLeaveUpdateDto;
 import com.entity.AnnualLeaveEntity;
 import com.enums.AnnualLeaveStatus;
+import com.exception.AnnualLeaveException;
 import com.repository.AnnualLeaveRepository;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.Test;
@@ -17,11 +19,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static com.constant.ErrorCodes.AVAILABLE_NOT_FOUND;
 import static com.enums.AnnualLeaveStatus.APPROVED;
 import static com.enums.AnnualLeaveStatus.WAITING_APPROVE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @ExtendWith(MockitoExtension.class)
 class AnnualLeaveServiceImplTest {
@@ -41,7 +46,24 @@ class AnnualLeaveServiceImplTest {
     }
 
     @Test
+    void shouldThrowAnnualLeaveExceptionUpdateWhenAnnualLeaveEntityNotFound() {
+
+        final UserAnnualLeaveUpdateDto dto = UserAnnualLeaveUpdateDto.builder()
+            .status(AnnualLeaveStatus.APPROVED)
+            .build();
+
+        final AnnualLeaveException exception = assertThrows(
+            AnnualLeaveException.class,
+            () -> annualLeaveService.update(dto)
+        );
+        assertEquals(AVAILABLE_NOT_FOUND, exception.getCode());
+        assertEquals(BAD_REQUEST, exception.getStatus());
+        assertEquals("annual.leave.not.found", exception.getMessageKey());
+    }
+
+    @Test
     void shouldUpdate() {
+
         final UserAnnualLeaveUpdateDto dto = UserAnnualLeaveUpdateDto.builder()
             .status(AnnualLeaveStatus.APPROVED)
             .build();
@@ -69,7 +91,8 @@ class AnnualLeaveServiceImplTest {
             .build();
 
         when(annualLeaveRepository.findAll()).thenReturn(Arrays.asList(entity1, entity2));
-        List<UserAnnualLeaveDto> list = annualLeaveService.list(userId);
+        UserAnnualLeaveResponse response = annualLeaveService.list(userId);
+        List<UserAnnualLeaveDto> list = response.getAnnualLeaveList();
 
         assertEquals(2, list.size());
         assertEquals(entity1.getId(), list.get(0).getId());

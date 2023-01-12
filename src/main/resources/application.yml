@@ -35,4 +35,6 @@ redis-config:
   port: 6379
 
 user-detail:
-  cacheMinute: 60
+  userCacheMinute: 60
+  listAnnualCacheMinute: 30
+  totalAnnualCacheMinute: 100

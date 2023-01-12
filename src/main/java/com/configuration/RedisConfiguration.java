@@ -16,7 +16,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.constant.CacheConstants.USER_DETAIL_CACHE;
+import static com.constant.CacheConstants.*;
 
 @Configuration
 @EnableCaching
@@ -35,8 +35,8 @@ public class RedisConfiguration {
     }
 
     @Bean
-    public RedisTemplate<byte[], byte[]> redisTemplate() {
-        RedisTemplate<byte[], byte[]> template = new RedisTemplate<>();
+    public RedisTemplate<String, Object> redisTemplate() {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory());
         template.setKeySerializer(new StringRedisSerializer());
         return template;
@@ -54,10 +54,20 @@ public class RedisConfiguration {
         final Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>();
 
         final RedisCacheConfiguration userCache = RedisCacheConfiguration.defaultCacheConfig()
-            .entryTtl(Duration.ofMinutes(userRedisProperties.getCacheMinute()))
+            .entryTtl(Duration.ofMinutes(userRedisProperties.getUserCacheMinute()))
+            .disableCachingNullValues();
+
+        final RedisCacheConfiguration listAnnual = RedisCacheConfiguration.defaultCacheConfig()
+            .entryTtl(Duration.ofMinutes(userRedisProperties.getListAnnualCacheMinute()))
+            .disableCachingNullValues();
+
+        final RedisCacheConfiguration totalAnnual = RedisCacheConfiguration.defaultCacheConfig()
+            .entryTtl(Duration.ofMinutes(userRedisProperties.getTotalAnnualCacheMinute()))
             .disableCachingNullValues();
 
         redisCacheConfigurationMap.put(USER_DETAIL_CACHE, userCache);
+        redisCacheConfigurationMap.put(USER_ANNUAL_LEAVE_LIST_CACHE, listAnnual);
+        redisCacheConfigurationMap.put(USER_TOTAL_ANNUAL_LEAVE_CACHE, totalAnnual);
 
         return redisCacheConfigurationMap;
     }

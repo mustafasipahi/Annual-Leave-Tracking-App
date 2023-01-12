@@ -1,6 +1,7 @@
 package com.service.impl;
 
 import com.dto.UserAnnualLeaveDto;
+import com.dto.UserAnnualLeaveResponse;
 import com.dto.UserAnnualLeaveUpdateDto;
 import com.entity.AnnualLeaveEntity;
 import com.exception.AnnualLeaveException;
@@ -24,10 +25,12 @@ import static com.enums.AnnualLeaveStatus.WAITING_APPROVE;
 public class AnnualLeaveServiceImpl implements AnnualLeaveService {
 
     private final AnnualLeaveRepository annualLeaveRepository;
+    private final RedisServiceImpl redisService;
 
     @Override
     public void save(AnnualLeaveEntity annualLeaveEntity) {
         annualLeaveRepository.save(annualLeaveEntity);
+        cacheEvict(annualLeaveEntity.getUser().getId());
     }
 
     @Override
@@ -37,12 +40,13 @@ public class AnnualLeaveServiceImpl implements AnnualLeaveService {
 
         annualLeaveEntity.setStatus(dto.getStatus());
         annualLeaveRepository.save(annualLeaveEntity);
+        cacheEvict(annualLeaveEntity.getUser().getId());
     }
 
     @Override
     @Cacheable(value = USER_ANNUAL_LEAVE_LIST_CACHE, key = "#userId")
-    public List<UserAnnualLeaveDto> list(Long userId) {
-        return annualLeaveRepository.findAll()
+    public UserAnnualLeaveResponse list(Long userId) {
+        final List<UserAnnualLeaveDto> annualLeaveList = annualLeaveRepository.findAll()
             .stream()
             .map(entity -> UserAnnualLeaveDto.builder()
                 .id(entity.getId())
@@ -53,6 +57,10 @@ public class AnnualLeaveServiceImpl implements AnnualLeaveService {
                 .createdDate(entity.getCreatedDate())
                 .build())
             .collect(Collectors.toList());
+
+        return UserAnnualLeaveResponse.builder()
+            .annualLeaveList(annualLeaveList)
+            .build();
     }
 
     @Override
@@ -63,5 +71,10 @@ public class AnnualLeaveServiceImpl implements AnnualLeaveService {
             .map(AnnualLeaveEntity::getCount)
             .reduce(Integer::sum)
             .orElse(0);
+    }
+
+    private void cacheEvict(Long userId) {
+        redisService.deleteByKey(USER_ANNUAL_LEAVE_LIST_CACHE + "::" + userId);
+        redisService.deleteByKey(USER_TOTAL_ANNUAL_LEAVE_CACHE + "::" + userId);
     }
 }

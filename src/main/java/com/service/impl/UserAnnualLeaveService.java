@@ -8,7 +8,7 @@ import com.enums.AnnualLeaveStatus;
 import com.service.AnnualLeaveService;
 import com.service.UserService;
 import com.service.annual.leave.rule.UserAnnualLeaveRule;
-import com.util.AvailableDaysCalculator;
+import com.calculator.AvailableDaysCalculator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

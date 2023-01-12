@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class AvailableAnnualLeaveCountRule implements UserAnnualLeaveRule {
 
-    private static final String MESSAGE_KEY = "unavailable.annual.leave.count";
+    protected static final String MESSAGE_KEY = "unavailable.annual.leave.count";
 
     @Override
     public UserAnnualLeaveRuleResponse verify(UserAnnualLeaveRuleDto dto) {

@@ -11,5 +11,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "user-detail")
 public class UserRedisProperties {
 
-    private int cacheMinute;
+    private int userCacheMinute;
+    private int listAnnualCacheMinute;
+    private int totalAnnualCacheMinute;
 }

@@ -1,8 +1,10 @@
 package com.service.impl;
 
+import com.converter.UserConverter;
 import com.dto.UserDto;
 import com.entity.UserEntity;
 import com.exception.UserNotFoundException;
+import com.holder.AppContextHolder;
 import com.repository.UserRepository;
 import com.service.UserService;
 import lombok.AllArgsConstructor;
@@ -46,5 +48,11 @@ public class UserServiceImpl implements UserService {
     public UserEntity detail(Long userId) {
         return userRepository.findById(userId)
             .orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
+    public UserDto info(Long userId) {
+        final UserService userService = AppContextHolder.getBean(UserService.class);
+        return UserConverter.convert(userService.detail(userId));
     }
 }

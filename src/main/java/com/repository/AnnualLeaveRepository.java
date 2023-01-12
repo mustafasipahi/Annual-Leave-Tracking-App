@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface AnnualLeaveRepository extends JpaRepository<AnnualLeaveEntity, Long> {
 
+    List<AnnualLeaveEntity> findAllByUserId(Long userId);
     List<AnnualLeaveEntity> findAllByUserIdAndStatusIn(Long userId, List<AnnualLeaveStatus> statusList);
 }

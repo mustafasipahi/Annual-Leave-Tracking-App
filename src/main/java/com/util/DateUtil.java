@@ -20,4 +20,8 @@ public class DateUtil {
     public static Date add(Date date, Duration duration) {
         return new Date(date.getTime() + duration.toMillis());
     }
+
+    public static Date sub(Date date, Duration duration) {
+        return new Date(date.getTime() - duration.toMillis());
+    }
 }

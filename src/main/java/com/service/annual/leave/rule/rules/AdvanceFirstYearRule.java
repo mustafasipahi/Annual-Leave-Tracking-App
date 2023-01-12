@@ -17,18 +17,18 @@ import java.util.Date;
 @AllArgsConstructor
 public class AdvanceFirstYearRule implements UserAnnualLeaveRule {
 
-    private static final int ADVANCE_ANNUAL_LEAVE_COUNT = 5;
-    private static final String MESSAGE_KEY = "advance.first.year";
+    protected static final int ADVANCE_ANNUAL_LEAVE_COUNT = 5;
+    protected static final String MESSAGE_KEY = "advance.first.year";
 
     @Override
     public UserAnnualLeaveRuleResponse verify(UserAnnualLeaveRuleDto dto) {
 
         if (isUserInFirstYear(dto.getUser().getCreatedDate())) {
 
-            int totalAnnualLeaveDay = dto.getTotalUsedDayCount();
+            int totalUsedDayCount = dto.getTotalUsedDayCount();
             int requestSize = dto.getRequestedAnnualLeaveDays().size();
 
-            if (totalAnnualLeaveDay >= ADVANCE_ANNUAL_LEAVE_COUNT) {
+            if (totalUsedDayCount >= ADVANCE_ANNUAL_LEAVE_COUNT) {
                 throw new AnnualLeaveRuleException(MESSAGE_KEY);
             }
 
@@ -36,7 +36,7 @@ public class AdvanceFirstYearRule implements UserAnnualLeaveRule {
                 throw new AnnualLeaveRuleException(MESSAGE_KEY);
             }
 
-            if (Math.addExact(requestSize, totalAnnualLeaveDay) > ADVANCE_ANNUAL_LEAVE_COUNT) {
+            if (Math.addExact(requestSize, totalUsedDayCount) > ADVANCE_ANNUAL_LEAVE_COUNT) {
                 throw new AnnualLeaveRuleException(MESSAGE_KEY);
             }
 
@@ -53,6 +53,6 @@ public class AdvanceFirstYearRule implements UserAnnualLeaveRule {
     private boolean isUserInFirstYear(Date userCreateDate) {
         final Date now = DateUtil.nowAsDate();
         final Date oneYearLater = DateUtil.add(userCreateDate, Duration.ofDays(365));
-        return oneYearLater.compareTo(now) <= 0;
+        return oneYearLater.compareTo(now) >= 0;
     }
 }

@@ -2,6 +2,7 @@ package com.controller;
 
 import com.dto.UserAnnualLeaveCreateDto;
 import com.dto.UserAnnualLeaveDto;
+import com.dto.UserAnnualLeaveResponse;
 import com.dto.UserAnnualLeaveUpdateDto;
 import com.service.AnnualLeaveService;
 import com.service.impl.UserAnnualLeaveService;
@@ -36,7 +37,7 @@ public class UserAnnualLeaveController {
 
     @ApiOperation(value = "List to User Annual Leave")
     @GetMapping("/list/{userId}")
-    public List<UserAnnualLeaveDto> list(@PathVariable Long userId) {
+    public UserAnnualLeaveResponse list(@PathVariable Long userId) {
         return annualLeaveService.list(userId);
     }
 }
