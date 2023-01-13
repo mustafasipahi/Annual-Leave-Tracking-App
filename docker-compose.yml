@@ -25,10 +25,10 @@ services:
     restart: always
     platform: linux/x86_64
     environment:
-       MYSQL_URL: jdbc:mysql://user-leave-tracking-mysql:3306/user_leave_tracking?autoReconnect=true&useSSL=false
-       MYSQL_PASSWORD: root
-       MYSQL_ROOT_PASSWORD: root
-       MYSQL_DATABASE: user_leave_tracking
+      MYSQL_URL: jdbc:mysql://user-leave-tracking-mysql:3306/user_leave_tracking?autoReconnect=true&useSSL=false
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: user_leave_tracking
     volumes:
       - ./mysql:/var/lib/user-leave-tracking-mysql
     ports:
