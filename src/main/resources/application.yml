@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/user_leave_tracking?autoReconnect=true&useSSL=false}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/user_leave_tracking?autoReconnect=true&useSSL=false&createDatabaseIfNotExist=true}
     username: ${SPRING_DATASOURCE_USERNAME:root}
     password: ${SPRING_DATASOURCE_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -20,17 +20,12 @@ spring:
     serialization:
       indent-output: true
   liquibase:
-    change-log=classpath:liquibase/changelog-master.xml:
+    change-log: classpath:liquibase/changelog-master.xml
+    enabled: true
 
 redis-config:
   host: ${REDIS_HOST:localhost}
   port: ${REDIS_PORT:6379}
-
-springdoc:
-  packagesToScan: com.controller
-  swagger-ui:
-    enabled: true
-    path: /swagger-ui
 
 user-detail:
   userCacheMinute: 60
