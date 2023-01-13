@@ -10,9 +10,11 @@ public class MessageConfiguration {
     @Bean(name="messageSource")
     public ReloadableResourceBundleMessageSource bundleMessageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:messages");
-        messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setUseCodeAsDefaultMessage(true);
+        messageSource.setCacheMillis(500);
+        messageSource.setBasenames(
+            "classpath:messages_tr",
+            "classpath:messages_en"
+        );
         return messageSource;
     }
 }
