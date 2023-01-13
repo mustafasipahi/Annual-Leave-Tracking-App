@@ -12,7 +12,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://user-leave-tracking-mysql:3306/user_leave_tracking?autoReconnect=true&useSSL=false
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
-      SPRING_JPA_HIBERNATE_DDL_AUTO: create
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
       REDIS_HOST: user-leave-tracking-redis
       REDIS_PORT: 6379
     depends_on:

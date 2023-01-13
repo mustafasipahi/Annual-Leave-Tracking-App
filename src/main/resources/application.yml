@@ -15,10 +15,12 @@ spring:
       hibernate:
         format_sql: false
     hibernate:
-      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:create}
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:none}
   jackson:
     serialization:
       indent-output: true
+  liquibase:
+    change-log=classpath:liquibase/changelog-master.xml:
 
 redis-config:
   host: ${REDIS_HOST:localhost}
