@@ -43,12 +43,12 @@ services:
     expose:
       - 6379
 
-# docker build -t user_leave_tracking_app -f Dockerfile .
+# docker build -t user-leave-tracking-app -f Dockerfile .
 # docker ps
 # docker images -a
 # docker network ls
-# docker run --name user_leave_tracking_app -p 8080:8080 user_leave_tracking_app
-# docker image rm user_leave_tracking_app
+# docker run --name user-leave-tracking-app -p 8080:8080 user-leave-tracking-app
+# docker image rm user-leave-tracking-app
 # docker rmi $(docker images -a -q)
 
 # docker-compose up -d
