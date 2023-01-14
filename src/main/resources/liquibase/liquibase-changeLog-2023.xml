@@ -5,9 +5,11 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <changeSet id="20220103 15:41" author="mustafasipahi">
+    <changeSet id="12012023 12:00" author="mustafasipahi">
         <createTable tableName="user">
-            <column name="id" type="BIGINT"/>
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
             <column name="last_name" type="VARCHAR(256)"/>
             <column name="first_name" type="VARCHAR(256)"/>
             <column name="phone" type="VARCHAR(256)"/>
@@ -16,9 +18,11 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="20220103 15:42" author="mustafasipahi">
+    <changeSet id="12012023 13:00" author="mustafasipahi">
         <createTable tableName="annual_leave">
-            <column name="id" type="BIGINT"/>
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
             <column name="user_id" type="BIGINT"/>
             <column name="count" type="INT"/>
             <column name="status" type="VARCHAR(256)"/>
@@ -26,6 +30,24 @@
             <column name="end_date" type="date"/>
             <column name="created_date" type="DATE"/>
         </createTable>
+    </changeSet>
+
+    <changeSet id="13012023 12:00" author="mustafasipahi">
+        <sql>
+            <![CDATA[
+            INSERT INTO user(first_name, last_name, phone, last_modified_date, created_date)
+            VALUES ('Mustafa', 'Sipahi', '5465533993', NOW(), NOW())
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="13012023 13:00" author="mustafasipahi">
+        <sql>
+            <![CDATA[
+            INSERT INTO annual_leave(user_id, count, status, start_date, end_date, created_date)
+            VALUES (1, 5, 'WAITING_APPROVE', NOW(), NOW(), NOW())
+            ]]>
+        </sql>
     </changeSet>
 
 </databaseChangeLog>
