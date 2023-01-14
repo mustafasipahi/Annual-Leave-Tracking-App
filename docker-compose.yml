@@ -29,8 +29,6 @@ services:
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: user_leave_tracking
-    volumes:
-      - ./mysql:/var/lib/user-leave-tracking-mysql
     ports:
       - "3306:3306"
     expose:
@@ -40,8 +38,6 @@ services:
     container_name: user-leave-tracking-redis
     image: redis:6.2-alpine
     restart: always
-    volumes:
-      - ./mysql:/var/lib/user-leave-tracking-redis
     ports:
       - '6379:6379'
     expose:
