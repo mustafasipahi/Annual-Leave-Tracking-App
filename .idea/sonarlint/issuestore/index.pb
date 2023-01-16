@@ -29,8 +29,6 @@ _
 /src/main/java/com/service/TranslateService.java,e/3/e32e0a87b8b7aac0a0cb31d05c606284768daf78
 c
 3src/main/java/com/service/impl/UserServiceImpl.java,f/2/f23437854686287f95932a7b3aed1a2a37c998d3
-`
-0src/main/java/com/controller/UserController.java,2/7/272fa5009a61613ce612108f9f50e011ade76ae6
 b
 2src/main/java/com/exception/MyExceptionAdvice.java,b/c/bc2df3bde60c5d41038d26933b13825cedc18e49
 i
@@ -41,3 +39,14 @@ g
 7src/main/java/com/configuration/RedisConfiguration.java,5/1/5128bc00f6f1db0c5cc4f40751185f4c237c314c
 j
 :src/test/java/com/util/UserAnnualLeavedPeriodUtilTest.java,5/1/51dfc7e60db348ea5ee43daee1b443ce62b38ce3
+X
+(src/main/java/com/entity/UserEntity.java,a/7/a7480aa519ced7ccc0c86e9ba75c718b4dded19a
+^
+.src/main/java/com/enums/AnnualLeaveStatus.java,6/3/63936dde30fab52e92f71be5986325f4b3f60f7d
+_
+/src/main/java/com/entity/AnnualLeaveEntity.java,6/8/68620edff4f74096f1aa081cbc1ecd0cdd391b9e
+`
+0src/main/java/com/controller/UserController.java,2/7/272fa5009a61613ce612108f9f50e011ade76ae6
+:
+
+Dockerfile,6/6/6651ddff6eb82c840ced7c1dddee15c6e1913dd4
