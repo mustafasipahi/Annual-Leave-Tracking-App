@@ -3,3 +3,9 @@ username: root
 password: root
 driver: com.mysql.cj.jdbc.Driver
 changeLogFile: src/main/resources/liquibase/changelog-master.xml
+
+
+referenceUrl: jdbc:mysql://localhost:3306/user_leave_tracking?autoReconnect=true&useSSL=false
+referenceUsername: root
+referencePassword: root
+outputChangeLogFile: src/main/resources/liquibase/generated-diff.xml
