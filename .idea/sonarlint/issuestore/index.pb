@@ -39,14 +39,12 @@ g
 7src/main/java/com/configuration/RedisConfiguration.java,5/1/5128bc00f6f1db0c5cc4f40751185f4c237c314c
 j
 :src/test/java/com/util/UserAnnualLeavedPeriodUtilTest.java,5/1/51dfc7e60db348ea5ee43daee1b443ce62b38ce3
-X
-(src/main/java/com/entity/UserEntity.java,a/7/a7480aa519ced7ccc0c86e9ba75c718b4dded19a
 ^
 .src/main/java/com/enums/AnnualLeaveStatus.java,6/3/63936dde30fab52e92f71be5986325f4b3f60f7d
-_
-/src/main/java/com/entity/AnnualLeaveEntity.java,6/8/68620edff4f74096f1aa081cbc1ecd0cdd391b9e
 `
 0src/main/java/com/controller/UserController.java,2/7/272fa5009a61613ce612108f9f50e011ade76ae6
 :
 
 Dockerfile,6/6/6651ddff6eb82c840ced7c1dddee15c6e1913dd4
+7
+pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec

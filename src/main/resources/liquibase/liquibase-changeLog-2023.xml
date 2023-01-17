@@ -30,6 +30,12 @@
             <column name="end_date" type="date"/>
             <column name="created_date" type="DATE"/>
         </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="annual_leave"
+                                 constraintName="fk_annual_leave_user_id"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"/>
     </changeSet>
 
     <changeSet id="13012023 12:00" author="mustafasipahi">
