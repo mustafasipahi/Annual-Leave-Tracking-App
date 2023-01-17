@@ -31,6 +31,10 @@
             <column name="created_date" type="DATE"/>
         </createTable>
 
+        <createIndex indexName="IDX_PHONE" tableName="user">
+            <column name="phone"/>
+        </createIndex>
+
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="annual_leave"
                                  constraintName="fk_annual_leave_user_id"
